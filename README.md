@@ -36,25 +36,25 @@ For this challenge, I utilized several key libraries and tools to address the re
    - A simple enumeration defining possible response statuses (e.g., `Ok` or `Error`). This enumeration standardizes the handling of API responses throughout the application, making the code more readable and easier to manage.
    
 ### 4. **StreamAuxiliary.h**
-    - A template class that manages the initialization and operation of a network stream, including handling SSL contexts and resolving endpoints. It serves as a utility for managing low-level stream operations needed for both HTTP and WebSocket connections, ensuring that the network layers are correctly set up and maintained.
+   - A template class that manages the initialization and operation of a network stream, including handling SSL contexts and resolving endpoints. It serves as a utility for managing low-level stream operations needed for both HTTP and WebSocket connections, ensuring that the network layers are correctly set up and maintained.
 	
 ### 5. **ConnectionServiceBase.h**
    - An abstract base class providing an interface for connection services. It defines essential methods for opening, closing, and checking the status of a connection, ensuring a consistent interface for different types of connection services.
 
 ### 6. **SynchronousConnectionService.h**
-    - Manages synchronous HTTP connections using Boost.Asio and Boost.Beast. It handles the opening and closing of connections, as well as executing HTTP requests and processing the corresponding responses in a synchronous manner. This class is central to handling one-off HTTP requests that require immediate results.
+   - Manages synchronous HTTP connections using Boost.Asio and Boost.Beast. It handles the opening and closing of connections, as well as executing HTTP requests and processing the corresponding responses in a synchronous manner. This class is central to handling one-off HTTP requests that require immediate results.
 	
 ### 7. **AsynchronousConnectionService.h**
    - Manages asynchronous WebSocket connections using Boost.Asio and Boost.Beast. It handles the opening, closing, and status checking of WebSocket connections and processes asynchronous notifications received from the server. The class includes a method, ListenToAsynchronousNotification, which processes incoming notifications in the sequence they are received. This design assumes that maintaining the order of processing is critical. If out-of-order processing were acceptable, the implementation could be optimized further by removing the locking mechanism, potentially improving performance.
    
 ### 8. **SynchronousRequestBase.h**
-    - An abstract base class for creating and processing synchronous HTTP requests. It defines the structure for generating requests, including pre-processing and post-processing steps, and enforces the implementation of request creation and processing logic in derived classes. This provides a standardized approach to handling different types of HTTP requests.
+   - An abstract base class for creating and processing synchronous HTTP requests. It defines the structure for generating requests, including pre-processing and post-processing steps, and enforces the implementation of request creation and processing logic in derived classes. This provides a standardized approach to handling different types of HTTP requests.
 	
 ### 9. **LoginSynchronousRequest.h**
    - Manages the creation and processing of a synchronous HTTP login request to the MollyBet API. It constructs the request using the provided username and password, ensuring that the necessary authentication data is sent correctly to obtain a session token.
    
 ### 10. **SynchronousResponseBase.h**
-    - Serves as a base for handling synchronous HTTP responses. It parses the HTTP response, extracting the status code and other relevant data, and provides utility methods to retrieve the response's HTTP status and custom response status. This class ensures that responses are consistently processed and interpreted across the application.
+   - Serves as a base for handling synchronous HTTP responses. It parses the HTTP response, extracting the status code and other relevant data, and provides utility methods to retrieve the response's HTTP status and custom response status. This class ensures that responses are consistently processed and interpreted across the application.
 	
 ### 11. **LoginSynchronousResponse.h**
    - Handles the response from a synchronous login request. This class extracts and stores the session code returned by the MollyBet API, which is crucial for establishing authenticated WebSocket connections in subsequent operations.
@@ -63,7 +63,7 @@ For this challenge, I utilized several key libraries and tools to address the re
    - An abstract base class that defines the interface for processing asynchronous notifications. Derived classes must implement the `ProcessNotification` method, which is used to handle messages received via WebSocket. This provides a flexible framework for dealing with different types of asynchronous notifications.
    
 ### 13. **SyncNotificationAuxiliary.h**
-    - Extends `AsynchronousNotificationAuxiliaryBase` to process notifications received via WebSocket asynchronously. It specifically handles event messages to extract and store distinct "competition_name" values, terminating when a "sync" message is encountered. This class is essential for managing and interpreting real-time data streams from the API.
+   - Extends `AsynchronousNotificationAuxiliaryBase` to process notifications received via WebSocket asynchronously. It specifically handles event messages to extract and store distinct "competition_name" values, terminating when a "sync" message is encountered. This class is essential for managing and interpreting real-time data streams from the API.
 	
 ### 14. **MollybetTechChallenge.cpp**
    - The main application file that integrates all components to execute the required operations. It handles the login process, establishes WebSocket connections, and processes received notifications to extract and display distinct competition names. This file serves as the entry point and orchestrates the flow of the program.
